@@ -19,7 +19,7 @@
     "composables/",
     "nuxt.config.ts"
   ],
-  "description": "Simple & customizable modal component for Nuxt 3.",
+  "description": "Custom modal component for Nuxt 3.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/timb-103/nuxt-modal.git"
