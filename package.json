@@ -1,0 +1,37 @@
+{
+  "name": "nuxt-modal",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "./nuxt.config.ts",
+  "scripts": {
+    "dev": "nuxi dev .playground",
+    "build": "nuxt build .playground",
+    "generate": "nuxt generate .playground",
+    "preview": "nuxt preview .playground",
+    "postinstall": "nuxt prepare .playground"
+  },
+  "devDependencies": {
+    "nuxt": "3.6.2",
+    "typescript": "4.9.3"
+  },
+  "files": [
+    "components/",
+    "composables/",
+    "nuxt.config.ts"
+  ],
+  "description": "Simple & customizable modal component for Nuxt 3.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timb-103/nuxt-mongodb.git"
+  },
+  "keywords": [
+    "nuxt",
+    "mongodb"
+  ],
+  "author": "Tim B",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timb-103/nuxt-mongodb/issues"
+  },
+  "homepage": "https://github.com/timb-103/nuxt-mongodb#readme"
+}
