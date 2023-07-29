@@ -1,6 +1,14 @@
 # Nuxt 3 Modal
 
-Simple & customizable modal component for Nuxt 3.
+Custom modal component for Nuxt 3.
+
+- 🔧 Fully customizable
+- 🤳🏻 Slides up on mobile
+- ✨ Nice transitions
+
+![Modal Example](https://i.ibb.co/NygxQr5/image-2023-07-29-174436482.png)
+
+[Open the playground on StackBlitz](https://stackblitz.com/github/timb-103/nuxt-modal/tree/master?file=.playground%2Fapp.vue).
 
 ## Install
 

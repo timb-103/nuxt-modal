@@ -1,7 +1,11 @@
 <template>
-  <NuxtModal @close="$emit('close')" :header="false">
+  <NuxtModal @close="$emit('close')">
+    <template v-slot:header>Hello! 👋🏼</template>
     <template v-slot:content>
-      <p>This modal is saved in it's own component, using custom buttons & no header!</p>
+      <p>
+        This is a simple nuxt-modal demo. Customize the header, content & buttons to make it fit
+        your website.
+      </p>
     </template>
 
     <!-- Custom Buttons -->
