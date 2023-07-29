@@ -22,16 +22,16 @@
   "description": "Simple & customizable modal component for Nuxt 3.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/timb-103/nuxt-mongodb.git"
+    "url": "git+https://github.com/timb-103/nuxt-modal.git"
   },
   "keywords": [
     "nuxt",
-    "mongodb"
+    "modal"
   ],
   "author": "Tim B",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/timb-103/nuxt-mongodb/issues"
+    "url": "https://github.com/timb-103/nuxt-modal/issues"
   },
-  "homepage": "https://github.com/timb-103/nuxt-mongodb#readme"
+  "homepage": "https://github.com/timb-103/nuxt-modal#readme"
 }
