@@ -1,5 +1,3 @@
-import { v4 as uuid } from '@lukeed/uuid'
-
 export default function useModal(key?: string, initialStatus: boolean = false) {
   key ??= uuid()
 
@@ -15,4 +13,18 @@ export default function useModal(key?: string, initialStatus: boolean = false) {
   const close = () => toggle(false)
 
   return { visible, open, close, toggle }
+}
+
+/**
+ * Simple function to generate a random id for the modal.
+ * @param length - length of the id string
+ */
+function uuid(length: number = 30) {
+  let string = ''
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+  const charactersLength = characters.length
+  for (let i = 0; i < length; i++) {
+    string += characters.charAt(Math.floor(Math.random() * charactersLength))
+  }
+  return string
 }
