@@ -89,6 +89,8 @@ function openModal() {
 }
 ```
 
+That's it, you've got a fully functional modal component in your project. Keep reading to customize the modal to suit your needs.
+
 ## Components
 
 ### `<NuxtModal />`
