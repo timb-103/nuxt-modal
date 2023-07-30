@@ -3,7 +3,6 @@
 # Nuxt 3 Modal
 
 [![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
 [![Nuxt][nuxt-src]][nuxt-href]
 
 > Custom modal component for Nuxt 3.
@@ -76,11 +75,13 @@ Alternatively you can add the modal into a component:
 </template>
 ```
 
-Then, to open your modal call `modal.open('modal-name')` from anywhere:
+Then, to open your modal:
 
 ```vue
 <button @click="modal.open('modal-name')">Open Modal</button>
 ```
+
+or, in the script section
 
 ```js
 function openModal() {
