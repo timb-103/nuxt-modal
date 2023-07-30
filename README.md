@@ -91,7 +91,7 @@ function openModal() {
 
 ## Components
 
-**`NuxtModal`**
+### `<NuxtModal />`
 
 The main component used to display modals is `NuxtModal`. Here's the full default configuration:
 
@@ -109,11 +109,7 @@ The main component used to display modals is `NuxtModal`. Here's the full defaul
 
 ## Composables
 
-**`useModal()`**
-
-```js 
-const modal = useModal()
-```
+### `useModal()`
 
 The useModal composable can be used to open & close the modal, as well as passing data to the modal if you need. It exposes the following:
 
@@ -122,11 +118,27 @@ The useModal composable can be used to open & close the modal, as well as passin
 - `visible` // the currently visible modal
 - `data` // custom data passed to the modal
 
+**Example**
+
+```js 
+const modal = useModal()
+```
+
 ## Slots
 
 - `header`: shown at the top of the modal
 - `content`: main content of the modal
 - `buttons`: close/proceed buttons, if you don't add any we'll show a cancel & proceed button fallback
+
+**Example**
+
+```vue
+<NuxtModal>
+  <template v-slot:header></template>
+  <template v-slot:content></template>
+  <template v-slot:buttons></template>
+</NuxtModal>
+```
 
 ## Props
 
@@ -136,15 +148,27 @@ The useModal composable can be used to open & close the modal, as well as passin
 | `buttons` | `boolean` | `true` | show/hide the modal buttons |
 | `borders` | `boolean` | `true` | show/hide the modal header & button borders |
 
-**Events**
+## Events
 
-`close`
+### `close`
 
-Fired when the users clicks the cancel button, or the modal background. You just want to use the composable function `modal.close()` in here.
+Fired when the users clicks the cancel button, or the modal background.
 
-`proceed`
+**Example**
+
+```vue
+<NuxtModal @close="modal.close()" />
+```
+
+### `proceed`
 
 Fired when the user accepts the modal. You can put any function in here to do something based on what the modal is for.
+
+**Example**
+
+```vue
+<NuxtModal @proceed="doSomething()" />
+```
 
 <!-- Badges -->
 
