@@ -109,7 +109,11 @@ The main component used to display modals is `NuxtModal`. Here's the full defaul
 
 ## Composables
 
-**`useModal`**
+**`useModal()`**
+
+```js 
+const modal = useModal()
+```
 
 The useModal composable can be used to open & close the modal, as well as passing data to the modal if you need. It exposes the following:
 
@@ -120,41 +124,17 @@ The useModal composable can be used to open & close the modal, as well as passin
 
 ## Slots
 
-**`header`**
+- `header`: shown at the top of the modal
+- `content`: main content of the modal
+- `buttons`: close/proceed buttons, if you don't add any we'll show a cancel & proceed button fallback
 
-Shown at the top of the modal. Best to just display a title.
+## Props
 
----
-
-**`content`**
-
-The main content of the modal.
-
----
-
-**`buttons`**
-
-The buttons to show in the bottom of the modal. If you don't add any, we'll show a cancel & proceed button as the fallback.
-
-**Props**
-
-`header`
-
-show/hide the modal header
-
----
-
-`buttons`
-
-show/hide the modal buttons
-
----
-
-`borders`
-
-show/hide the header & button borders
-
----
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `header` | `boolean` | `true` | show/hide the modal header |
+| `buttons` | `boolean` | `true` | show/hide the modal buttons |
+| `borders` | `boolean` | `true` | show/hide the modal header & button borders |
 
 **Events**
 
