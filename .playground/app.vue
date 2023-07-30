@@ -1,5 +1,7 @@
 <template>
   <h1>Nuxt Modal Demo</h1>
+
+  <!-- Toggle Buttons-->
   <div class="buttons">
     <button @click="openInlineModal">Open Inline Demo Modal</button>
     <button @click="modalComponent.open">Open Component Demo Modal</button>
