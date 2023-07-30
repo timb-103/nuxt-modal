@@ -44,7 +44,7 @@ const modal = useModal()
 
 Then, add a modal:
 
-```js
+```vue
 <template>
   <NuxtModal
     v-if="modal.visible.value === 'basic-modal'"
@@ -65,7 +65,8 @@ Then, add a modal:
 
 Alternatively you can add the modal into a component:
 
-```js
+```vue
+<!-- components/modals/ModalComponent.vue -->
 <template>
   <ModalComponent
     v-if="modal.visible.value === 'component'"
@@ -77,7 +78,7 @@ Alternatively you can add the modal into a component:
 
 Then, to open your modal call `modal.open('modal-name')` from anywhere:
 
-```html
+```vue
 <button @click="modal.open('modal-name')">Open Modal</button>
 ```
 
@@ -105,13 +106,16 @@ The main component used to display modals is `NuxtModal`. Here's the full defaul
 </template>
 ```
 
----
-
 ## Composables
 
 **`useModal`**
 
-The useModal composable can be used to open & close the modal, as well as passing data to the modal if you need.
+The useModal composable can be used to open & close the modal, as well as passing data to the modal if you need. It exposes the following:
+
+- `open('modal-name')` // open a modal
+- `close()` // close the modal
+- `visible` // the currently visible modal
+- `data` // custom data passed to the modal
 
 ## Slots
 
