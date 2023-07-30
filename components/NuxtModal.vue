@@ -176,7 +176,7 @@ watch(visible, (value) => {
 /* Transition */
 .modal-enter-active,
 .modal-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 
 .modal-enter-from,
