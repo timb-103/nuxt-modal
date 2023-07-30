@@ -34,7 +34,5 @@
     "url": "https://github.com/timb-103/nuxt-modal/issues"
   },
   "homepage": "https://github.com/timb-103/nuxt-modal#readme",
-  "dependencies": {
-    "@lukeed/uuid": "^2.0.1"
-  }
+  "dependencies": {}
 }
