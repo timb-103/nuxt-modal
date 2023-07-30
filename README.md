@@ -33,60 +33,43 @@ export default defineNuxtConfig({
 })
 ```
 
-## Usage
-
-In your script, declare the modal, using the `useModal` composable:
-
-```js
-const modal = useModal()
-```
-
-Then, add a modal:
+## Usage (inline modal)
 
 ```vue
 <template>
-  <NuxtModal
-    v-if="modal.visible.value === 'basic-modal'"
-    @close="modal.close()"
-    @proceed="modal.close()"
-  >
-    <template v-slot:header>Hello! 👋🏼</template>
+  <!-- Inline Modal -->
+  <NuxtModal v-model="isModalOpen">
+    <template v-slot:header>Inline Modal</template>
     <template v-slot:content>
-      <p>This is a basic nuxt-modal, that can bo opened with modal.open('basic-modal')</p>
-    </template>
-    <template v-slot:buttons>
-      <button @click="modal.close()">Cancel</button>
-      <button @click="doSomethingElse()">Got it!</button>
+      <p>This modal an inline modal, that doesn't need it's own component.</p>
     </template>
   </NuxtModal>
+
+  <!-- Open Modal Button-->
+  <button @click="openModal">Open Inline Modal</button>
 </template>
+
+<script>
+const isModalOpen = ref(false)
+const openModal = () => (isModalOpen.value = true)
+</script>
 ```
 
-Alternatively you can add the modal into a component:
+## Usage (component modal)
 
 ```vue
-<!-- components/modals/ModalComponent.vue -->
 <template>
-  <ModalComponent
-    v-if="modal.visible.value === 'component'"
-    @close="modal.close()"
-    @proceed="modal.close()"
-  />
+  <!-- Component Modal (components/ModalComponent) -->
+  <ModalComponent :name="name" />
+
+  <!-- Open Modal Button-->
+  <button @click="modalComponent.open">Open Component Modal</button>
 </template>
-```
 
-Then, to open your modal:
-
-```vue
-<button @click="modal.open('modal-name')">Open Modal</button>
-```
-
-or, in the script section
-
-```js
-function openModal() {
-  modal.open('modal-name')
-}
+<script>
+const name = ref('myModal')
+const modal = useModal(name.value)
+</script>
 ```
 
 That's it, you've got a fully functional modal component in your project. Keep reading to customize the modal to suit your needs.
@@ -100,6 +83,8 @@ The main component used to display modals is `NuxtModal`. Here's the full defaul
 ```js
 <template>
   <NuxtModal
+    v-model // boolean with visible value
+    :name="'modalName'"
     :header="true"
     :buttons="true"
     :borders="true"
@@ -113,17 +98,12 @@ The main component used to display modals is `NuxtModal`. Here's the full defaul
 
 ### `useModal()`
 
-The useModal composable can be used to open & close the modal, as well as passing data to the modal if you need. It exposes the following:
-
-- `open('modal-name')` // open a modal
-- `close()` // close the modal
-- `visible` // the currently visible modal
-- `data` // custom data passed to the modal
+You can access your modals anywhere in your app as we store the data with useState().
 
 **Example**
 
-```js 
-const modal = useModal()
+```js
+const { open, close, toggle, visible } = useModal('modalName')
 ```
 
 ## Slots
@@ -144,22 +124,24 @@ const modal = useModal()
 
 ## Props
 
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `header` | `boolean` | `true` | show/hide the modal header |
-| `buttons` | `boolean` | `true` | show/hide the modal buttons |
-| `borders` | `boolean` | `true` | show/hide the modal header & button borders |
+| Prop      | Type      | Default | Description                                 |
+| --------- | --------- | ------- | ------------------------------------------- |
+| `v-model` | `boolean` | `false` | the visibility of the modal                 |
+| `name`    | `string`  | ``      | (optional) the unique name of the modal     |
+| `header`  | `boolean` | `true`  | show/hide the modal header                  |
+| `buttons` | `boolean` | `true`  | show/hide the modal buttons                 |
+| `borders` | `boolean` | `true`  | show/hide the modal header & button borders |
 
 ## Events
 
-### `close`
+### `closed`
 
 Fired when the users clicks the cancel button, or the modal background.
 
 **Example**
 
 ```vue
-<NuxtModal @close="modal.close()" />
+<NuxtModal @close="doSomething()" />
 ```
 
 ### `proceed`
