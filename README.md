@@ -1,14 +1,22 @@
+![Nuxt Modal](./.github/og.png)
+
 # Nuxt 3 Modal
 
-Custom modal component for Nuxt 3.
+[![npm version][npm-version-src]][npm-version-href]
+[![npm downloads][npm-downloads-src]][npm-downloads-href]
+[![Nuxt][nuxt-src]][nuxt-href]
 
-- 🔧 Fully customizable
+> Custom modal component for Nuxt 3.
+
+- [Open the playground on StackBlitz](https://stackblitz.com/github/timb-103/nuxt-modal/tree/master?file=.playground%2Fapp.vue).
+
+## Features
+
+- 🔧 Fully customizable (colors, functions, slots)
 - 🤳🏻 Slides up on mobile
-- ✨ Nice transitions
-
-![Modal Example](https://i.ibb.co/NygxQr5/image-2023-07-29-174436482.png)
-
-[Open the playground on StackBlitz](https://stackblitz.com/github/timb-103/nuxt-modal/tree/master?file=.playground%2Fapp.vue).
+- ✨ Nice fade in/out
+- ⚡ Setup in seconds
+- ✅ Works for all use cases
 
 ## Install
 
@@ -28,31 +36,37 @@ export default defineNuxtConfig({
 
 ## Usage
 
-In your script, you should define the useModal() composable
+In your script, declare the modal, using the `useModal` composable:
 
-```vue
-<script setup lang="ts">
+```js
 const modal = useModal()
-</script>
 ```
 
-Then, in your template add your modal, here's 2 example:
+Then, add a modal:
 
-```vue
+```js
 <template>
-  <!-- Inline Demo -->
   <NuxtModal
-    v-if="modal.visible.value === 'inline'"
+    v-if="modal.visible.value === 'basic-modal'"
     @close="modal.close()"
     @proceed="modal.close()"
   >
-    <template v-slot:header>Inline Modal</template>
+    <template v-slot:header>Hello! 👋🏼</template>
     <template v-slot:content>
-      <p>This modal an inline modal, that doesn't need it's own component.</p>
+      <p>This is a basic nuxt-modal, that can bo opened with modal.open('basic-modal')</p>
+    </template>
+    <template v-slot:buttons>
+      <button @click="modal.close()">Cancel</button>
+      <button @click="doSomethingElse()">Got it!</button>
     </template>
   </NuxtModal>
+</template>
+```
 
-  <!-- Component Demo -->
+Alternatively you can add the modal into a component:
+
+```js
+<template>
   <ModalComponent
     v-if="modal.visible.value === 'component'"
     @close="modal.close()"
@@ -61,20 +75,37 @@ Then, in your template add your modal, here's 2 example:
 </template>
 ```
 
-Then, to open your modal simply use the useModal() composable's open() function:
+Then, to open your modal call `modal.open('modal-name')` from anywhere:
 
-```vue
-<template>
-  <div class="buttons">
-    <button @click="modal.open('modal-name')">Open Modal</button>
-  </div>
-</template>
-
-<!-- or, in the script -->
-<script>
-modal.open('modal-name')
-</script>
+```html
+<button @click="modal.open('modal-name')">Open Modal</button>
 ```
+
+```js
+function openModal() {
+  modal.open('modal-name')
+}
+```
+
+## Components
+
+**`NuxtModal`**
+
+The main component used to display modals is `NuxtModal`. Here's the full default configuration:
+
+```js
+<template>
+  <NuxtModal
+    :header="true"
+    :buttons="true"
+    :borders="true"
+    @close="modal.close()"
+    @proceed="modal.close()"
+  />
+</template>
+```
+
+---
 
 ## Composables
 
@@ -99,26 +130,6 @@ The main content of the modal.
 **`buttons`**
 
 The buttons to show in the bottom of the modal. If you don't add any, we'll show a cancel & proceed button as the fallback.
-
-## Components
-
-**`NuxtModal`**
-
-The main component used to display modals. Here's the full default configuration:
-
-```js
-<template>
-  <NuxtModal
-    :header="true"
-    :buttons="true"
-    :borders="true"
-    @close="modal.close()"
-    @proceed="modal.close()" // or do something else
-  />
-</template>
-```
-
----
 
 **Props**
 
@@ -149,3 +160,12 @@ Fired when the users clicks the cancel button, or the modal background. You just
 `proceed`
 
 Fired when the user accepts the modal. You can put any function in here to do something based on what the modal is for.
+
+<!-- Badges -->
+
+[npm-version-src]: https://img.shields.io/npm/v/nuxt-modal/latest.svg
+[npm-version-href]: https://npmjs.com/package/nuxt-modal
+[npm-downloads-src]: https://img.shields.io/npm/dt/nuxt-modal.svg
+[npm-downloads-href]: https://npmjs.com/package/nuxt-modal
+[nuxt-src]: https://img.shields.io/badge/Nuxt-18181B?logo=nuxt.js
+[nuxt-href]: https://nuxt.com
