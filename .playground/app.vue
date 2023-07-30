@@ -1,16 +1,14 @@
 <template>
   <h1>Nuxt Modal Demo</h1>
+
+  <!-- Toggle Buttons-->
   <div class="buttons">
-    <button @click="modal.open('inline')">Open Inline Demo Modal</button>
-    <button @click="modal.open('component')">Open Component Demo Modal</button>
+    <button @click="openInlineModal">Open Inline Demo Modal</button>
+    <button @click="modalComponent.open">Open Component Demo Modal</button>
   </div>
 
   <!-- Inline Demo -->
-  <NuxtModal
-    v-if="modal.visible.value === 'inline'"
-    @close="modal.close()"
-    @proceed="modal.close()"
-  >
+  <NuxtModal v-model="isInlineModalOpened">
     <template v-slot:header>Inline Modal</template>
     <template v-slot:content>
       <p>This modal an inline modal, that doesn't need it's own component.</p>
@@ -18,15 +16,17 @@
   </NuxtModal>
 
   <!-- Component Demo -->
-  <ModalComponent
-    v-if="modal.visible.value === 'component'"
-    @close="modal.close()"
-    @proceed="modal.close()"
-  />
+  <ModalComponent :name="componentModalName" />
 </template>
 
 <script setup lang="ts">
-const modal = useModal()
+// using useModal with same key
+const componentModalName = ref('componentModal')
+const modalComponent = useModal(componentModalName.value)
+
+// using v-model
+const isInlineModalOpened = ref(false)
+const openInlineModal = () => (isInlineModalOpened.value = true)
 </script>
 
 <style>
@@ -46,6 +46,7 @@ button {
   display: block;
   margin-bottom: 10px;
 }
+
 button:hover {
   opacity: 0.7;
   cursor: pointer;

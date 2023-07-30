@@ -1,5 +1,5 @@
 <template>
-  <NuxtModal @close="$emit('close')">
+  <NuxtModal :name="name">
     <template v-slot:header>Hello! 👋🏼</template>
     <template v-slot:content>
       <p>
@@ -10,11 +10,19 @@
 
     <!-- Custom Buttons -->
     <template v-slot:buttons>
-      <button class="button button-cancel" @click="$emit('close')">Cancel</button>
-      <button class="button button-proceed" @click="$emit('close')">Got it!</button>
+      <button class="button button-cancel" @click="close">Cancel</button>
+      <button class="button button-proceed" @click="close">Got it!</button>
     </template>
   </NuxtModal>
 </template>
+
+<script setup lang="ts">
+const props = defineProps<{
+  name: string
+}>()
+
+const { close } = useModal(props.name)
+</script>
 
 <style scoped>
 .button {
@@ -23,17 +31,21 @@
   border: 0;
   cursor: pointer;
 }
+
 .button-cancel {
   color: #fff;
   background: #ff4e4e;
 }
+
 .button-cancel:hover {
   opacity: 0.7;
 }
+
 .button-proceed {
   background: #57c657;
   color: #fff;
 }
+
 .button-proceed:hover {
   opacity: 0.7;
 }

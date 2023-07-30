@@ -1,16 +1,30 @@
-export default function useModal() {
-  const visible = ref("")
-  const data = ref<any>()
+export default function useModal(key?: string, initialStatus: boolean = false) {
+  key ??= uuid()
 
-  function open(type: string, value: any = {}) {
-    data.value = value
-    visible.value = type
+  const visible = useState(`NUXT_MODAL_${key}`, () => initialStatus)
+  const toggle = (value?: boolean) => {
+    if (typeof value === 'undefined') {
+      visible.value = !visible.value
+    } else {
+      visible.value = value
+    }
   }
+  const open = () => toggle(true)
+  const close = () => toggle(false)
 
-  function close() {
-    visible.value = ""
-    data.value = false
+  return { visible, open, close, toggle }
+}
+
+/**
+ * Simple function to generate a random id for the modal.
+ * @param length - length of the id string
+ */
+function uuid(length: number = 30) {
+  let string = ''
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+  const charactersLength = characters.length
+  for (let i = 0; i < length; i++) {
+    string += characters.charAt(Math.floor(Math.random() * charactersLength))
   }
-
-  return { data, visible, open, close }
+  return string
 }
