@@ -1,21 +1,23 @@
 <template>
   <transition name="modal">
-    <div class="modal-background" @click="$emit('close')">
-      <div class="modal" @click.stop>
-        <div class="modal-header left" v-if="header" :class="{ 'modal-no-border': !borders }">
-          <slot name="header"></slot>
-        </div>
+    <div v-if="visible">
+      <div class="modal-background" @click="handleClose">
+        <div class="modal" @click.stop>
+          <div class="modal-header left" v-if="header" :class="{ 'modal-no-border': !borders }">
+            <slot name="header"></slot>
+          </div>
 
-        <div class="modal-body left">
-          <slot name="content"></slot>
-        </div>
+          <div class="modal-body left">
+            <slot name="content"></slot>
+          </div>
 
-        <!-- Buttons -->
-        <div class="modal-buttons" v-if="buttons" :class="{ 'modal-no-border': !borders }">
-          <slot name="buttons">
-            <button class="button button-cancel" @click="$emit('close')">Cancel</button>
-            <button class="button button-proceed" @click="$emit('proceed')">Yes, Proceed</button>
-          </slot>
+          <!-- Buttons -->
+          <div class="modal-buttons" v-if="buttons" :class="{ 'modal-no-border': !borders }">
+            <slot name="buttons">
+              <button class="button button-cancel" @click="handleClose">Cancel</button>
+              <button class="button button-proceed" @click="handleProceed">Yes, Proceed</button>
+            </slot>
+          </div>
         </div>
       </div>
     </div>
@@ -23,23 +25,60 @@
 </template>
 
 <script setup lang="ts">
-defineEmits(['close', 'proceed'])
-defineProps({
-  header: {
-    type: Boolean,
-    required: false,
-    default: () => true,
+const props = withDefaults(
+  defineProps<{
+    name?: string
+    modelValue?: boolean
+    header?: boolean
+    buttons?: boolean
+    borders?: boolean
+  }>(),
+  {
+    header: true,
+    buttons: true,
+    borders: true,
+  }
+)
+
+const { modelValue } = toRefs(props)
+
+const { open, close, toggle, visible } = useModal(props.name)
+
+const emit = defineEmits<{
+  closed: [] // named tuple syntax
+  proceed: []
+  'update:modelValue': [value: boolean]
+}>()
+
+defineExpose({
+  open,
+  close,
+  toggle,
+  visible,
+})
+
+const handleClose = () => {
+  close()
+  emit('closed')
+}
+
+const handleProceed = () => {
+  close()
+  emit('proceed')
+}
+
+watch(
+  modelValue,
+  (value, oldValue) => {
+    if (value !== oldValue) {
+      toggle(value)
+    }
   },
-  buttons: {
-    type: Boolean,
-    required: false,
-    default: () => true,
-  },
-  borders: {
-    type: Boolean,
-    required: false,
-    default: () => true,
-  },
+  { immediate: true }
+)
+
+watch(visible, (value) => {
+  emit('update:modelValue', value)
 })
 </script>
 
@@ -71,6 +110,7 @@ defineProps({
   overflow: auto;
   gap: 16px;
 }
+
 .modal-body:deep(p) {
   margin: 0;
   font-size: 15px;
@@ -99,9 +139,11 @@ defineProps({
   justify-content: space-between;
   gap: 1em;
 }
+
 .modal-buttons:deep(button) {
   border-radius: 7px;
 }
+
 .modal-no-border {
   border: 0;
 }
@@ -113,16 +155,20 @@ defineProps({
   border: 0;
   cursor: pointer;
 }
+
 .button-cancel {
   background: transparent;
 }
+
 .button-cancel:hover {
   background: #fafafa;
 }
+
 .button-proceed {
   background: #000;
   color: #fff;
 }
+
 .button-proceed:hover {
   opacity: 0.7;
 }
@@ -142,6 +188,7 @@ defineProps({
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -151,6 +198,7 @@ defineProps({
   0% {
     transform: translateY(100px);
   }
+
   100% {
     transform: translateY(0px);
   }
@@ -160,6 +208,7 @@ defineProps({
   .modal-background {
     justify-content: flex-start;
   }
+
   .modal {
     max-width: 400px;
     border-radius: 6px;

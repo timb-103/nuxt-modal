@@ -1,16 +1,18 @@
-export default function useModal() {
-  const visible = ref("")
-  const data = ref<any>()
+import { v4 as uuid } from '@lukeed/uuid'
 
-  function open(type: string, value: any = {}) {
-    data.value = value
-    visible.value = type
+export default function useModal(key?: string, initialStatus: boolean = false) {
+  key ??= uuid()
+
+  const visible = useState(`NUXT_MODAL_${key}`, () => initialStatus)
+  const toggle = (value?: boolean) => {
+    if (typeof value === 'undefined') {
+      visible.value = !visible.value
+    } else {
+      visible.value = value
+    }
   }
+  const open = () => toggle(true)
+  const close = () => toggle(false)
 
-  function close() {
-    visible.value = ""
-    data.value = false
-  }
-
-  return { data, visible, open, close }
+  return { visible, open, close, toggle }
 }
