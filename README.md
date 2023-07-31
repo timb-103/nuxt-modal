@@ -37,7 +37,7 @@ export default defineNuxtConfig({
 
 ```vue
 <template>
-  <!-- Inline Modal -->
+  <!-- Modal -->
   <NuxtModal v-model="isModalOpen">
     <template v-slot:header>Inline Modal</template>
     <template v-slot:content>
@@ -45,7 +45,7 @@ export default defineNuxtConfig({
     </template>
   </NuxtModal>
 
-  <!-- Open Modal Button-->
+  <!-- Button-->
   <button @click="openModal">Open Inline Modal</button>
 </template>
 
@@ -59,10 +59,10 @@ const openModal = () => (isModalOpen.value = true)
 
 ```vue
 <template>
-  <!-- Component Modal (components/ModalComponent) -->
+  <!-- Modal (components/ModalComponent) -->
   <ModalComponent :name="name" />
 
-  <!-- Open Modal Button-->
+  <!-- Button-->
   <button @click="modalComponent.open">Open Component Modal</button>
 </template>
 
