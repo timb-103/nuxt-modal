@@ -1,7 +1,7 @@
 {
   "name": "nuxt-modal",
   "type": "module",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxi dev .playground",
