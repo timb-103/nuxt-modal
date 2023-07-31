@@ -15,7 +15,7 @@
 - 🤳🏻 Slides up on mobile
 - ✨ Nice fade in/out
 - ⚡ Setup in seconds
-- ✅ Works for all use cases
+- ✅ Access modals from anywhere
 
 ## Install
 
@@ -37,7 +37,6 @@ export default defineNuxtConfig({
 
 ```vue
 <template>
-  <!-- Modal -->
   <NuxtModal v-model="isModalOpen">
     <template v-slot:header>Inline Modal</template>
     <template v-slot:content>
@@ -45,8 +44,7 @@ export default defineNuxtConfig({
     </template>
   </NuxtModal>
 
-  <!-- Button-->
-  <button @click="openModal">Open Inline Modal</button>
+  <button @click="openModal">Open</button>
 </template>
 
 <script>
@@ -58,16 +56,38 @@ const openModal = () => (isModalOpen.value = true)
 ## Usage (component modal)
 
 ```vue
+<!-- components/ModalComponent.vue -->
 <template>
-  <!-- Modal (components/ModalComponent) -->
-  <ModalComponent :name="name" />
+  <NuxtModal :name="name">
+    <template v-slot:header>Hello! 👋🏼</template>
+    <template v-slot:content>
+      <p>This is a simple nuxt-modal component</p>
+    </template>
+    <template v-slot:buttons>
+      <button @click="close">Cancel</button>
+      <button @click="close">Got it!</button>
+    </template>
+  </NuxtModal>
+</template>
 
-  <!-- Button-->
-  <button @click="modalComponent.open">Open Component Modal</button>
+<script setup lang="ts">
+const props = defineProps<{
+  name: string
+}>()
+
+const { close } = useModal(props.name)
+</script>
+```
+
+```vue
+<!-- app.vue -->
+<template>
+  <ModalComponent :name="name" />
+  <button @click="modalComponent.open">Open</button>
 </template>
 
 <script>
-const name = ref('myModal')
+const name = ref('myModal)
 const modal = useModal(name.value)
 </script>
 ```
