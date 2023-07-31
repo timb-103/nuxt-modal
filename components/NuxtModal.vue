@@ -204,6 +204,24 @@ watch(visible, (value) => {
   }
 }
 
+@keyframes slideOut {
+  0% {
+    transform: translateY(0px);
+  }
+
+  100% {
+    transform: translateY(100px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /** Slide Out Transition (mobile only) */
+  .modal-enter-from:deep(.modal),
+  .modal-leave-to:deep(.modal) {
+    animation: slideOut 0.2s linear;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .modal-background {
     justify-content: flex-start;
